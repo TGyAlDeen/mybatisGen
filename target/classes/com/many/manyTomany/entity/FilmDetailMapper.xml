@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.many.manyTomany.entity.FilmDetailMapper">
+
+	<!-- confirm parameter type -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+				SELECT
+		    F.film_id,
+		    F.title,
+		    F.release_year,
+		    F.language_id,
+		    F.original_language_id,
+		    F.rental_duration,
+		    F.rental_rate,
+		    F.length,
+		    F.replacement_cost,
+		    F.rating,
+		    F.special_features,
+		    F.last_update,
+		    C.category_id       as "category_category_id",
+		    C.name          as "category_name",
+		    C.last_update       as "category_last_update",
+		    A.actor_id          as "actor_actor_id",
+		    A.first_name            as "actor_first_name",
+		    A.last_name         as "actor_last_name",
+		    A.last_update       as "actor_last_update",
+		    L1.name         as "language_name",
+		    L1.last_update      as "language_last_update",
+		    L2.name         as "orglanguage_name",
+		    L2.last_update      as "orglanguage_last_update"
+		 
+		FROM
+		    film F
+		INNER JOIN film_actor FA ON
+		    FA.film_id = F.film_id
+		INNER JOIN actor A ON
+		    A.actor_id = FA.actor_id
+		INNER JOIN film_category FC ON
+		    FC.film_id = F.film_id
+		INNER JOIN category C ON
+		    C.category_id = FC.category_id
+		INNER JOIN language L1 ON
+		    L1.language_id = F.language_id
+		LEFT OUTER JOIN language L2 ON
+		    L2.language_id = F.original_language_id
+		WHERE
+		    F.film_id = #{filmId,jdbcType=SMALLINT}
+	</select>
+	<!-- tagy add type -->	
+	<!-- check extends -->
+	<resultMap type="com.many.manyTomany.entity.FilmDetail" id="BaseResultMap">
+	<id column="film_id" property="filmId"/>
+		<association property="language" columnPrefix="language_" resultMap="com.many.manyTomany.entity.LanguageMapper.BaseResultMap"/>
+		<!-- of type -->
+		<collection property="actorList" columnPrefix="actor_" ofType="com.many.manyTomany.entity.Actor" resultMap="com.many.manyTomany.entity.ActorMapper.BaseResultMap"/>
+		<collection property="categoryList" columnPrefix="category_" ofType="com.many.manyTomany.entity.Category" resultMap="com.many.manyTomany.entity.CategoryMapper.BaseResultMap"/>
+		
+		
+	</resultMap>
+</mapper>
