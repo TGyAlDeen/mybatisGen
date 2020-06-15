@@ -43,7 +43,7 @@ public class App
                 // ActorテーブルのMapperを取得します
                 FilmDetailMapper map = session.getMapper(FilmDetailMapper.class);
  
-                FilmDetail dtl = map.selectByPrimaryKey((short)10);
+                FilmDetail dtl = map.selectByPrimaryKey((short)100);
  
                 // 結果を表示します
                 System.out.println("dtl.getFilmId : " + dtl.getFilmId());

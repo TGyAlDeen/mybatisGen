@@ -46,9 +46,8 @@
 			F.film_id = #{filmId};		
 	</select>
 	<!-- tagy add type -->	
-	<!-- check extends -->
-	<resultMap type="com.many.manyTomany.entity.FilmDetail" id="BaseResultMap">
-	
+	<!-- check extends its important in order to make the parent-->
+	<resultMap type="com.many.manyTomany.entity.FilmDetail" id="BaseResultMap" extends="com.many.manyTomany.entity.FilmMapper.BaseResultMap">
 		<association property="language" resultMap="com.many.manyTomany.entity.LanguageMapper.BaseResultMap"/>
 		<!-- of type -->
 		<collection property="actorList" ofType="com.many.manyTomany.entity.Actor" resultMap="com.many.manyTomany.entity.ActorMapper.BaseResultMap"/>
